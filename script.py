@@ -47,8 +47,9 @@ def sample(category):
                     num_small_groups = i
             if num_small_groups == -1:
                 if len(users) < MIN_USERS_PER_GROUP:
-                    raise NotEnoughUsersForGroup(f"There are only {len(users)} in the current category, and the minimal "
-                                                 f"number of users in a group is {MIN_USERS_PER_GROUP}")
+                    raise NotEnoughUsersForGroup(
+                        f"There are only {len(users)} in the current category, and the minimal "
+                        f"number of users in a group is {MIN_USERS_PER_GROUP}")
                 group_id = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=12))
                 for i in range(1, len(users) - 2):
                     if verify_group(users, max_known=i):
