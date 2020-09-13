@@ -49,9 +49,6 @@ io.sockets.on("connection",function(socket){
           socket.send(JSON.stringify(err_to_client));
         }
         
-        else{
-            
-        }
     });
  
 });
