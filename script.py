@@ -1,3 +1,5 @@
+import copy
+import json
 import random
 
 all_users = dict()
@@ -21,17 +23,63 @@ class User:
         self.user_id = user_id
         self.previous_group_ids = set()
 
-    def add_group(self, group_ids):
-        self.previous_group_ids.add(group_ids)
+    def add_group(self, group_id):
+        self.previous_group_ids.add(group_id)
 
     def __repr__(self):
         return f'user_id: {self.user_id}; previous_group_ids: [' + ','.join(self.previous_group_ids) + ']'
+
+    @classmethod
+    def from_dict(self, dict_obj):
+        user = User(dict_obj['user_id'])
+        for group_id in dict_obj['previous_group_ids']:
+            user.add_group(group_id)
+        return user
+
+
+def to_dict(self):
+    """Serializes this instance to a Python dictionary."""
+    output = copy.deepcopy(self.__dict__)
+    output['previous_group_ids'] = list(output['previous_group_ids'])
+    return output
 
 
 def add_user(user_id, category):
     if category not in all_users:
         all_users[category] = dict()
     all_users[category][user_id] = User(user_id)
+
+
+def verify_group(group, max_known=1):
+    for i, u1 in enumerate(group):
+        known = 0
+        for j, u2 in enumerate(group):
+            if i == j:
+                continue
+            if not u1[1].previous_group_ids.isdisjoint(u2[1].previous_group_ids):
+                known += 1
+        if known > max_known:
+            return False
+    return True
+
+
+def load_json(path):
+    global all_users
+    with open(path, 'r') as f:
+        all_users = json.load(f)
+    for category in all_users:
+        for user_id in all_users[category]:
+            all_users[category][user_id] = User.from_dict(all_users[category][user_id])
+
+
+def save_json(path):
+    output = copy.deepcopy(all_users)
+    for category in output:
+        for user_id in output[category]:
+            output[category][user_id] = output[category][user_id].to_dict()
+
+    with open(path, 'w') as f:
+        json.dump(output, f)
 
 
 def sample(category):
@@ -109,19 +157,6 @@ def sample(category):
         except NoNewGroupAvailable:
             if j == MAX_TRIES - 1:
                 raise
-
-
-def verify_group(group, max_known=1):
-    for i, u1 in enumerate(group):
-        known = 0
-        for j, u2 in enumerate(group):
-            if i == j:
-                continue
-            if not u1[1].previous_group_ids.isdisjoint(u2[1].previous_group_ids):
-                known += 1
-        if known > max_known:
-            return False
-    return True
 
 
 if __name__ == "__main__":
