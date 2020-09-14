@@ -30,18 +30,17 @@ class User:
         return f'user_id: {self.user_id}; previous_group_ids: [' + ','.join(self.previous_group_ids) + ']'
 
     @classmethod
-    def from_dict(self, dict_obj):
+    def from_dict(cls, dict_obj):
         user = User(dict_obj['user_id'])
         for group_id in dict_obj['previous_group_ids']:
             user.add_group(group_id)
         return user
 
-
-def to_dict(self):
-    """Serializes this instance to a Python dictionary."""
-    output = copy.deepcopy(self.__dict__)
-    output['previous_group_ids'] = list(output['previous_group_ids'])
-    return output
+    def to_dict(self):
+        """Serializes this instance to a Python dictionary."""
+        output = copy.deepcopy(self.__dict__)
+        output['previous_group_ids'] = list(output['previous_group_ids'])
+        return output
 
 
 def add_user(user_id, category):
@@ -113,8 +112,6 @@ def sample(category):
                     cur_group = users[i * MIN_USERS_PER_GROUP: (i + 1) * MIN_USERS_PER_GROUP]
                     if verify_group(cur_group):
                         groups[group_id] = list(zip(*cur_group))[0]
-                        # for _, user in cur_group:
-                        #     user.previous_group_ids.add(group_id)
                     else:
                         for _ in range(MAX_TRIES - 1):
                             users[i * MIN_USERS_PER_GROUP:] = random.sample(users[i * MIN_USERS_PER_GROUP:],
@@ -122,8 +119,6 @@ def sample(category):
                             cur_group = users[i * MIN_USERS_PER_GROUP: (i + 1) * MIN_USERS_PER_GROUP]
                             if verify_group(cur_group):
                                 groups[group_id] = list(zip(*cur_group))[0]
-                                # for _, user in cur_group:
-                                #     user.previous_group_ids.add(group_id)
                                 break
                         else:
                             raise NoNewGroupAvailable("All available users have already talked to each other")
@@ -134,8 +129,6 @@ def sample(category):
                                       users_in_small_groups + (i + 1) * WANTED_USERS_PER_CHAT]
                     if verify_group(cur_group):
                         groups[group_id] = list(zip(*cur_group))[0]
-                        # for _, user in cur_group:
-                        #     user.previous_group_ids.add(group_id)
                     else:
                         for _ in range(MAX_TRIES - 1):
                             users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:] = \
@@ -145,8 +138,6 @@ def sample(category):
                                               users_in_small_groups + (i + 1) * WANTED_USERS_PER_CHAT]
                             if verify_group(cur_group):
                                 groups[group_id] = list(zip(*cur_group))[0]
-                                # for _, user in cur_group:
-                                #     user.previous_group_ids.add(group_id)
                                 break
                         else:
                             raise NoNewGroupAvailable("All available users have already talked to each other")
