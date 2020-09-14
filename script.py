@@ -160,7 +160,7 @@ def initialize_users(users_json_path):
     """
     global all_users
     all_users = dict()
-    with open(users_json_path, 'r') as f:
+    with open(users_json_path, 'r', encoding='utf8') as f:
         users = json.loads('[' + ','.join([x.strip() for x in f.readlines()]) + ']')
     # users = json.loads(users_json)
     for user in users:
