@@ -2,6 +2,7 @@ import copy
 import json
 import os
 import random
+import sys
 
 USERS_JSON_PATH = './users.json'
 
@@ -153,12 +154,13 @@ def sample(category):
                 raise
 
 
-def initialize_users(users):
+def initialize_users(users_json):
     """
-    :param users: A list of JSON objects, each representing a user.
+    :param users_json: A list of JSON objects, each representing a user.
     """
     global all_users
     all_users = dict()
+    users = json.loads(users_json)
     for user in users:
         user_id = user['id']
         category = f"{user['studies']['fields'][0]} {user['studies']['year']}"
@@ -174,10 +176,20 @@ def get_groups():
     return json.dumps(all_groups)
 
 
-if __name__ == "__main__":
-    for k in range(40):
-        add_user(k, random.randint(0, 1))
+def main(argv):
+    argv = argv[1:]
+    if argv[0] == 'init':
+        initialize_users(argv[1])
+    elif argv[0] == 'get_groups':
+        return get_groups()
 
-    x = sample(0)
-    y = sample(0)
-    print(1)
+
+if __name__ == "__main__":
+    main(sys.argv)
+    # print(sys.argv)
+    # for k in range(40):
+    #     add_user(k, random.randint(0, 1))
+    #
+    # x = sample(0)
+    # y = sample(0)
+    # print(1)
