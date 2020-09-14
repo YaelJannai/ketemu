@@ -194,6 +194,7 @@ def main(argv):
         initialize_users(argv[1])
     elif argv[0] == 'get_groups':
         return get_groups()
+    print('************************* 2.5 *************************')  # TODO: delete this line
 
 
 if __name__ == "__main__":
