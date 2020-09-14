@@ -154,13 +154,15 @@ def sample(category):
                 raise
 
 
-def initialize_users(users_json):
+def initialize_users(users_json_path):
     """
-    :param users_json: A list of JSON objects, each representing a user.
+    :param users_json_path: A path to a list of JSON objects, each representing a user.
     """
     global all_users
     all_users = dict()
-    users = json.loads(users_json)
+    with open(users_json_path, 'r') as f:
+        users = json.loads('[' + ','.join([x.strip() for x in f.readlines()]) + ']')
+    # users = json.loads(users_json)
     for user in users:
         user_id = user['id']
         category = f"{user['studies']['fields'][0]} {user['studies']['year']}"
@@ -173,6 +175,7 @@ def get_groups():
     load_json()
     for category in all_users:
         all_groups.extend(sample(category))
+    save_json()
     return json.dumps(all_groups)
 
 

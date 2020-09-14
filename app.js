@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import {PythonShell} from 'python-shell';
+=======
+// import {PythonShell} from 'python-shell';
+>>>>>>> 42933df1383f17763bb8a8bd7f295886faf3b48e
 
 const express = require("express"); 
 const bodyParser = require("body-parser"); 
