@@ -1,13 +1,21 @@
 <html>
 <head>
-    <title>comeet</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<script src='https://meet.jit.si/external_api.js'></script>
+	<script src='./scripts/meeting.js'></script>
 </head>
-<body>
-    <header>
-        <h1>
-            Welcome, nice to meet you!
-        </h1>
-    </header>
-    <iframe allow="camera; microphone; display-capture" src="https://meet.jit.si/Hackbgu2020="true" style="height: 80%; width: 80%; border: 1px;"></iframe>
+<body onload="startMeeting()">
+	<div id="meet" style="height: 78%; width: 50%; display: block; margin: 0 auto;">
+	</div>
 </body>
 </html>
+
+<!-- 
+
+pink
+#ffc0cb
+
+style="background: url('https://images.unsplash.com/photo-1559251606-c623743a6d76');"
+
+-->
