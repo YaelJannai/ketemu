@@ -187,9 +187,9 @@ def get_groups():
 
 
 def main(argv):
-    print('************************* 1 *************************')  # TODO: delete this line
-    print('************************* 1.25 *************************')  # TODO: delete this line
-    print(f'************************* {argv} *************************')  # TODO: delete this line
+    print(f'*********** {argv} ********')  # TODO: delete this line
+    print('**** 1.25 ****')  # TODO: delete this line
+    print('******** 1 ********')  # TODO: delete this line
     argv = argv[1:]
     print('************************* 1.5 *************************')  # TODO: delete this line
     if argv[0] == 'init':
