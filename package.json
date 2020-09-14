@@ -6,10 +6,7 @@
     "fs": "0.0.1-security",
     "jsonfile": "^6.0.1",
     "path": "^0.12.7",
-<<<<<<< HEAD
     "python-shell": "^2.0.1",
-=======
->>>>>>> 42933df1383f17763bb8a8bd7f295886faf3b48e
     "querystring": "^0.2.0",
     "socket.io": "^2.3.0"
   }
