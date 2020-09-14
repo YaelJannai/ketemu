@@ -5,6 +5,7 @@ import random
 import sys
 
 USERS_JSON_PATH = './users.json'
+GROUPS_JSON_PATH = './groups.json'
 
 all_users = dict()
 
@@ -166,22 +167,15 @@ def initialize_users(users_json_path):
     """
     global all_users
     all_users = dict()
-    # print('************************* 3 *************************')  # TODO: delete this line
     with open(users_json_path, 'r', encoding='utf8') as f:
-        # print('************************* 4 *************************')  # TODO: delete this line
         users = json.loads('[' + ','.join([x.strip() for x in f.readlines()]) + ']')
-        # print('************************* 5 *************************')  # TODO: delete this line
 
-    # print('************************* 6 *************************')  # TODO: delete this line
-    # users = json.loads(users_json)
     for user in users:
         user_id = user['id']
         # category = f"{user['studies']['fields'][0]} {user['studies']['year']}"
         category = user['studies']['fields'][0] + ' ' + user['studies']['year']
         add_user(user_id, category)
-    # print('************************* 7 *************************')  # TODO: delete this line
     save_json()
-    # print('************************* 8 *************************')  # TODO: delete this line
 
 
 def get_groups():
@@ -190,21 +184,17 @@ def get_groups():
     for category in all_users:
         all_groups.extend(sample(category))
     save_json()
-    return json.dumps(all_groups)
+    with open(GROUPS_JSON_PATH, 'w') as f:
+        json.dump(all_groups, f)
+    # return json.dumps(all_groups)
 
 
 def main(argv):
-    # print(f'*********** {argv} ********')  # TODO: delete this line
-    # print('**** 1.25 ****')  # TODO: delete this line
-    # print('******** 1 ********')  # TODO: delete this line
     argv = argv[1:]
-    # print('************************* 1.5 *************************')  # TODO: delete this line
     if argv[0] == 'init':
-        # print('************************* 2 *************************')  # TODO: delete this line
         initialize_users(argv[1])
     elif argv[0] == 'get_groups':
         return get_groups()
-    # print('************************* 2.5 *************************')  # TODO: delete this line
 
 
 if __name__ == "__main__":
