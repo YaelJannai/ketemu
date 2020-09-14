@@ -31,7 +31,8 @@ class User:
         self.previous_group_ids.add(group_id)
 
     def __repr__(self):
-        return f'user_id: {self.user_id}; previous_group_ids: [' + ','.join(self.previous_group_ids) + ']'
+        # return f'user_id: {self.user_id}; previous_group_ids: [' + ','.join(self.previous_group_ids) + ']'
+        return 'user_id: ' + self.user_id + '; previous_group_ids: [' + ','.join(self.previous_group_ids) + ']'
 
     @classmethod
     def from_dict(cls, dict_obj):
@@ -175,7 +176,8 @@ def initialize_users(users_json_path):
     # users = json.loads(users_json)
     for user in users:
         user_id = user['id']
-        category = f"{user['studies']['fields'][0]} {user['studies']['year']}"
+        # category = f"{user['studies']['fields'][0]} {user['studies']['year']}"
+        category = user['studies']['fields'][0] + ' ' + user['studies']['year']
         add_user(user_id, category)
     # print('************************* 7 *************************')  # TODO: delete this line
     save_json()
