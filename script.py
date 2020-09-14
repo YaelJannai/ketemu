@@ -1,6 +1,10 @@
 import copy
 import json
+import os
 import random
+import sys
+
+USERS_JSON_PATH = './users.json'
 
 all_users = dict()
 
@@ -62,8 +66,10 @@ def verify_group(group, max_known=1):
     return True
 
 
-def load_json(path):
+def load_json(path=USERS_JSON_PATH):
     global all_users
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"No users file can be found at {path}")
     with open(path, 'r') as f:
         all_users = json.load(f)
     for category in all_users:
@@ -71,7 +77,7 @@ def load_json(path):
             all_users[category][user_id] = User.from_dict(all_users[category][user_id])
 
 
-def save_json(path):
+def save_json(path=USERS_JSON_PATH):
     output = copy.deepcopy(all_users)
     for category in output:
         for user_id in output[category]:
@@ -101,8 +107,6 @@ def sample(category):
                 for i in range(1, len(users) - 2):
                     if verify_group(users, max_known=i):
                         groups[group_id] = list(zip(*users))[0]
-                        # for _, user in users:
-                        #     user.previous_group_ids.add(group_id)
                         break
                 else:
                     raise NoNewGroupAvailable("All available users have already talked to each other")
@@ -150,10 +154,42 @@ def sample(category):
                 raise
 
 
-if __name__ == "__main__":
-    for k in range(40):
-        add_user(k, random.randint(0, 1))
+def initialize_users(users_json):
+    """
+    :param users_json: A list of JSON objects, each representing a user.
+    """
+    global all_users
+    all_users = dict()
+    users = json.loads(users_json)
+    for user in users:
+        user_id = user['id']
+        category = f"{user['studies']['fields'][0]} {user['studies']['year']}"
+        add_user(user_id, category)
+    save_json()
 
-    x = sample(0)
-    y = sample(0)
-    print(1)
+
+def get_groups():
+    all_groups = list()
+    load_json()
+    for category in all_users:
+        all_groups.extend(sample(category))
+    return json.dumps(all_groups)
+
+
+def main(argv):
+    argv = argv[1:]
+    if argv[0] == 'init':
+        initialize_users(argv[1])
+    elif argv[0] == 'get_groups':
+        return get_groups()
+
+
+if __name__ == "__main__":
+    main(sys.argv)
+    # print(sys.argv)
+    # for k in range(40):
+    #     add_user(k, random.randint(0, 1))
+    #
+    # x = sample(0)
+    # y = sample(0)
+    # print(1)
