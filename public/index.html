@@ -39,13 +39,9 @@
 	<br/>
 	<br/>
 	<p class="clock" id="demo"></p>
-<<<<<<< HEAD
-	<script action="/isTime" method="post">
-=======
 	<script>
->>>>>>> 42933df1383f17763bb8a8bd7f295886faf3b48e
 		// Set the date we're counting down to
-		var countDownDate = new Date("Sep 14, 2020 20:00:00").getTime();
+		var countDownDate = new Date("Sep 15, 2020 06:00:00").getTime();
 			// Update the count down every 1 second
 			var x = setInterval(function() {
 			// Get today's date and time
@@ -60,7 +56,7 @@
 			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 				
 			// Output the result in an element with id="demo"
-			document.getElementById("demo").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s LEFT";
+			document.getElementById("demo").innerHTML = "זמן לסגירת ההרשמה: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s";
 				
 			// If the count down is over, write some text 
 			if (distance < 0) {
