@@ -1,3 +1,5 @@
+import copy
+import json
 import random
 
 all_users = dict()
@@ -5,7 +7,7 @@ all_users = dict()
 MIN_USERS_PER_GROUP = 3
 WANTED_USERS_PER_CHAT = 4
 
-MAX_TRIES = 10
+MAX_TRIES = 20
 
 
 class NoNewGroupAvailable(Exception):
@@ -21,69 +23,31 @@ class User:
         self.user_id = user_id
         self.previous_group_ids = set()
 
-    def add_group(self, group_ids):
-        self.previous_group_ids.add(group_ids)
+    def add_group(self, group_id):
+        self.previous_group_ids.add(group_id)
+
+    def __repr__(self):
+        return f'user_id: {self.user_id}; previous_group_ids: [' + ','.join(self.previous_group_ids) + ']'
+
+    @classmethod
+    def from_dict(self, dict_obj):
+        user = User(dict_obj['user_id'])
+        for group_id in dict_obj['previous_group_ids']:
+            user.add_group(group_id)
+        return user
+
+
+def to_dict(self):
+    """Serializes this instance to a Python dictionary."""
+    output = copy.deepcopy(self.__dict__)
+    output['previous_group_ids'] = list(output['previous_group_ids'])
+    return output
 
 
 def add_user(user_id, category):
     if category not in all_users:
         all_users[category] = dict()
     all_users[category][user_id] = User(user_id)
-
-
-def sample(category):
-    groups = list()
-    users = list(all_users[category].items())
-    random.shuffle(users)
-    num_small_groups = -1
-    for i in range(WANTED_USERS_PER_CHAT):
-        if i * MIN_USERS_PER_GROUP <= len(users) and \
-                (len(users) - i * MIN_USERS_PER_GROUP) % WANTED_USERS_PER_CHAT == 0:
-            num_small_groups = i
-    if num_small_groups == -1:
-        if len(users) < MIN_USERS_PER_GROUP:
-            raise NotEnoughUsersForGroup(f"There are only {len(users)} in the current category, and the minimal "
-                                         f"number of users in a group is {MIN_USERS_PER_GROUP}")
-        for i in range(1, len(users) - 1):
-            if verify_group(users, max_known=i):
-                groups.append(list(zip(*users))[0])
-                break
-        else:
-            raise NoNewGroupAvailable("All available users have already talked to each other")
-    else:
-        for i in range(num_small_groups):
-            cur_group = users[i * MIN_USERS_PER_GROUP: (i + 1) * MIN_USERS_PER_GROUP]
-            if verify_group(cur_group):
-                groups.append(list(zip(*cur_group))[0])
-            else:
-                for _ in range(MAX_TRIES - 1):
-                    users[i * MIN_USERS_PER_GROUP:] = random.sample(users[i * MIN_USERS_PER_GROUP:],
-                                                                    len(users[i * MIN_USERS_PER_GROUP:]))
-                    cur_group = users[i * MIN_USERS_PER_GROUP: (i + 1) * MIN_USERS_PER_GROUP]
-                    if verify_group(cur_group):
-                        groups.append(list(zip(*cur_group))[0])
-                        break
-                else:
-                    raise NoNewGroupAvailable("All available users have already talked to each other")
-        users_in_small_groups = num_small_groups * MIN_USERS_PER_GROUP
-        for i in range((len(users) - users_in_small_groups) // WANTED_USERS_PER_CHAT):
-            cur_group = users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:
-                              users_in_small_groups + (i + 1) * WANTED_USERS_PER_CHAT]
-            if verify_group(cur_group):
-                groups.append(cur_group)
-            else:
-                for _ in range(MAX_TRIES - 1):
-                    users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:] = \
-                        random.sample(users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:],
-                                      len(users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:]))
-                    cur_group = users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:
-                                      users_in_small_groups + (i + 1) * WANTED_USERS_PER_CHAT]
-                    if verify_group(cur_group):
-                        groups.append(cur_group)
-                        break
-                else:
-                    raise NoNewGroupAvailable("All available users have already talked to each other")
-            groups.append(cur_group)
 
 
 def verify_group(group, max_known=1):
@@ -97,3 +61,108 @@ def verify_group(group, max_known=1):
         if known > max_known:
             return False
     return True
+
+
+def load_json(path):
+    global all_users
+    with open(path, 'r') as f:
+        all_users = json.load(f)
+    for category in all_users:
+        for user_id in all_users[category]:
+            all_users[category][user_id] = User.from_dict(all_users[category][user_id])
+
+
+def save_json(path):
+    output = copy.deepcopy(all_users)
+    for category in output:
+        for user_id in output[category]:
+            output[category][user_id] = output[category][user_id].to_dict()
+
+    with open(path, 'w') as f:
+        json.dump(output, f)
+
+
+def sample(category):
+    for j in range(MAX_TRIES):
+        try:
+            groups = dict()
+            users = list(all_users[category].items())
+            random.shuffle(users)
+            num_small_groups = -1
+            for i in range(WANTED_USERS_PER_CHAT):
+                if i * MIN_USERS_PER_GROUP <= len(users) and \
+                        (len(users) - i * MIN_USERS_PER_GROUP) % WANTED_USERS_PER_CHAT == 0:
+                    num_small_groups = i
+            if num_small_groups == -1:
+                if len(users) < MIN_USERS_PER_GROUP:
+                    raise NotEnoughUsersForGroup(
+                        f"There are only {len(users)} in the current category, and the minimal "
+                        f"number of users in a group is {MIN_USERS_PER_GROUP}")
+                group_id = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=12))
+                for i in range(1, len(users) - 2):
+                    if verify_group(users, max_known=i):
+                        groups[group_id] = list(zip(*users))[0]
+                        # for _, user in users:
+                        #     user.previous_group_ids.add(group_id)
+                        break
+                else:
+                    raise NoNewGroupAvailable("All available users have already talked to each other")
+            else:
+                for i in range(num_small_groups):
+                    group_id = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=12))
+                    cur_group = users[i * MIN_USERS_PER_GROUP: (i + 1) * MIN_USERS_PER_GROUP]
+                    if verify_group(cur_group):
+                        groups[group_id] = list(zip(*cur_group))[0]
+                        # for _, user in cur_group:
+                        #     user.previous_group_ids.add(group_id)
+                    else:
+                        for _ in range(MAX_TRIES - 1):
+                            users[i * MIN_USERS_PER_GROUP:] = random.sample(users[i * MIN_USERS_PER_GROUP:],
+                                                                            len(users[i * MIN_USERS_PER_GROUP:]))
+                            cur_group = users[i * MIN_USERS_PER_GROUP: (i + 1) * MIN_USERS_PER_GROUP]
+                            if verify_group(cur_group):
+                                groups[group_id] = list(zip(*cur_group))[0]
+                                # for _, user in cur_group:
+                                #     user.previous_group_ids.add(group_id)
+                                break
+                        else:
+                            raise NoNewGroupAvailable("All available users have already talked to each other")
+                users_in_small_groups = num_small_groups * MIN_USERS_PER_GROUP
+                for i in range((len(users) - users_in_small_groups) // WANTED_USERS_PER_CHAT):
+                    group_id = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=12))
+                    cur_group = users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:
+                                      users_in_small_groups + (i + 1) * WANTED_USERS_PER_CHAT]
+                    if verify_group(cur_group):
+                        groups[group_id] = list(zip(*cur_group))[0]
+                        # for _, user in cur_group:
+                        #     user.previous_group_ids.add(group_id)
+                    else:
+                        for _ in range(MAX_TRIES - 1):
+                            users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:] = \
+                                random.sample(users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:],
+                                              len(users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:]))
+                            cur_group = users[users_in_small_groups + i * WANTED_USERS_PER_CHAT:
+                                              users_in_small_groups + (i + 1) * WANTED_USERS_PER_CHAT]
+                            if verify_group(cur_group):
+                                groups[group_id] = list(zip(*cur_group))[0]
+                                # for _, user in cur_group:
+                                #     user.previous_group_ids.add(group_id)
+                                break
+                        else:
+                            raise NoNewGroupAvailable("All available users have already talked to each other")
+            for group_id, group_users in groups.items():
+                for user_id in group_users:
+                    all_users[category][user_id].add_group(group_id)
+            return groups
+        except NoNewGroupAvailable:
+            if j == MAX_TRIES - 1:
+                raise
+
+
+if __name__ == "__main__":
+    for k in range(40):
+        add_user(k, random.randint(0, 1))
+
+    x = sample(0)
+    y = sample(0)
+    print(1)
