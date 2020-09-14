@@ -1,4 +1,4 @@
-import { PythonShell } from "python-shell";
+let {PythonShell} = require('python-shell');
 const express = require("express");
 const bodyParser = require("body-parser");
 const http = require("http");
@@ -9,11 +9,7 @@ let cachedUser = {};
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(
-    bodyParser.urlencoded({
-        extended: true,
-    })
-);
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // configuration for json file with user input
 var jsonfile = require("jsonfile");
@@ -55,10 +51,12 @@ app.post("/details", function (req, res) {
         var degree_1 = req.body.degree_1;
         var degree_2 = req.body.degree_2 == "" ? null : req.body.degree_2;
         var year = req.body.year;
-        var courses = req.body.courses;
-        var hobbies = req.body.hobbies;
+        var courses = req.body.courses == "" ? [] : req.body.courses;
+        var hobbies = req.body.hobbies == "" ? [] : req.body.hobbies;
         var any = req.body.any;
         var id = makeid();
+
+        fields = [degree_1, degree_2];
 
         // create student object
         var data = {
@@ -77,10 +75,14 @@ app.post("/details", function (req, res) {
         jsonfile.writeFileSync(file, data, { flag: "a" });
         var jsonObj = JSON.stringify(data);
         //call to python function
+        InitUsersPython();
+        var res = getMeetingsPython();
+        console.log(res);
         //recieve url of the meeting
         //send user to meeting
+
         res.redirect("/meeting.html");
-        return res.end();
+        return res.end("bye!");
     }
 });
 
