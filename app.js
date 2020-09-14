@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import {PythonShell} from 'python-shell';
-=======
-// import {PythonShell} from 'python-shell';
->>>>>>> 42933df1383f17763bb8a8bd7f295886faf3b48e
+let {PythonShell} = require('python-shell')
+
 
 const express = require("express"); 
 const bodyParser = require("body-parser"); 
@@ -51,30 +48,34 @@ app.post('/details', function(req,res){
 		var degree_1 = req.body.degree_1; 
 		var degree_2 = (req.body.degree_2 == "") ? null :  req.body.degree_2;
 		var year = req.body.year;
-		var courses = req.body.courses;
-		var hobbies = req.body.hobbies;
+		var courses = (req.body.courses == "") ? [] : req.body.courses;
+		var hobbies = (req.body.hobbies == "") ? [] : req.body.hobbies;
 		var any = req.body.any;
 		var id = makeid();
+
+		fields = [degree_1, degree_2]
 	
 		// create student object
 		var data = { 
-			"user_id": id,
-			"name": name, 
-			"degree_1":degree_1,
-			"degree_2":degree_2,
-			"year":year,
+			"id": id,
+			"given-name": name, 
+			"studies": {"fields":fields, "year":year},
 			"courses":courses,
 			"hobbies":hobbies,
-			"any": any
+			"extra-info": any
 		} 
 		// add to JSON file 
 		jsonfile.writeFileSync(file, data, {flag: 'a'});
 		var jsonObj = JSON.stringify(data);
 		//call to python function
+		InitUsersPython();
+		var res = getMeetingsPython();
+		console.log(res);
 		//recieve url of the meeting
 		//send user to meeting
-		res.redirect('/meeting.html');
-		return res.end('bye!');
+
+		// res.redirect('/meeting.html');
+		// return res.end('bye!');
 	}
 });
 
@@ -130,15 +131,15 @@ function InitUsersPython(){
 	let options = {
 		mode: 'json',
 		pythonPath: 'python',
-		pythonOptions: ['-u'], // get print results in real-time
+		// pythonOptions: ['-u'], // get print results in real-time
 		scriptPath: '.',
-		args: ['init', '/userdata.json']
+		args: ['init', 'userdata.json']
 	  };
 	   
-	PythonShell.run('script.py', options, function (err, results) {
+	PythonShell.run('script.py', options, function (err) {
 		if (err) throw err;
 		// results is an array consisting of messages collected during execution
-		console.log('results: %j', results);
+		// console.log('results: %j', results);
 	});
 }
 
