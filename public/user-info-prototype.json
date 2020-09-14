@@ -1,0 +1,16 @@
+{
+	"id": "generated-jitsi-id",
+	"given-name": "The name the user gives himself",
+	"social": {
+		"email": "Email address (should be verified)",
+		"facebook": "https://facebook.com/me",
+		"mobile": "054-111-2222"
+	},
+	"university": "University name",
+	"studies": {
+		"fields": [],
+		"year": 3
+	},
+	"hobbits": [],
+	"extra-info": "More textual information"
+}
