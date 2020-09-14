@@ -173,6 +173,7 @@ def get_groups():
     load_json()
     for category in all_users:
         all_groups.extend(sample(category))
+    save_json()
     return json.dumps(all_groups)
 
 
