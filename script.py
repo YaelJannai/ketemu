@@ -105,7 +105,7 @@ def sample(category):
                 if len(users) < MIN_USERS_PER_GROUP:
                     raise NotEnoughUsersForGroup()
                     # raise NotEnoughUsersForGroup(
-                    #     f"There are only {len(users)} in the current category, and the minimal "
+                    #     f"There are only {len(users)} in the current category ({category}), and the minimal "
                     #     f"number of users in a group is {MIN_USERS_PER_GROUP}")
                 group_id = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=12))
                 for i in range(1, len(users) - 2):
@@ -179,10 +179,10 @@ def initialize_users(users_json_path):
 
 
 def get_groups():
-    all_groups = list()
+    all_groups = dict()
     load_json()
     for category in all_users:
-        all_groups.extend(sample(category))
+        all_groups.update(sample(category))
     save_json()
     with open(GROUPS_JSON_PATH, 'w') as f:
         json.dump(all_groups, f)
