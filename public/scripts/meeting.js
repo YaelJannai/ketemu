@@ -116,7 +116,6 @@ function addUsers(number) {
 	localStorage.setItem('users', JSON.stringify(users));
 }
 
-
 // $('.displayname').each((i,x) => x.innerHTML += '<BR>לומד עיצוב קרמי וזכוכית<BR>אוהב עוגיות<BR>מתכנת<BR>🍪')
 
 //<span class="displayname" style="margin: 25% 0 0 0;">hello</span>

@@ -1,71 +1,59 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="hebrew">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href= 
-        "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity= "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">	 
-        <link rel="stylesheet" type="text/css" href="style.css"> 
         <title>Questions</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+        <script src='./scripts/ketemu.js'></script>
+        <script src='./scripts/questions.js'></script>
     </head>
-
-    <body> 
-	
-        <br> 
-        <br> 
-        <br> 
-        <div class="container" > 
-            <div class="row"> 
-                <div class="col-md-3">     
-                </div> 
-
-                    
-                <div class="col-md-6 main"> 
-                            
-                    <form action="/details" method="post"> 
-                        <h1> כמה שאלות, כדי שנוכל להכיר יותר טוב :) </h1> 
-                        <br/>
-                        <br/>
-                        <div><br/>איך קוראים לך?</div>           
-                        <input class="box" type="text" name="name" id="name"
-                        placeholder="ישראל ישראלי" required /><br> 
-                        <br/>
-                        <div><br/>באיזה תואר את/ה (אם את/ה במסלול משולב רשום/רשמי את התואר הראשי או את אחד מהם)?</div>
-                        <input class="box" type="degree_1" name="degree_1" id="degree_1"
-                        placeholder="ראשי עם חטיבה - כתבו את הראשי, דו חוגי - כתבו אחד מהחוגים" required /><br> 
-                        <br/>
-                        <div><br/>רשום/רשמי את מסלול להלימודים השני - אם רלוונטי</div>
-                        <input class="box" type="degree_2" name="degree_2" id="degree_2" 
-                        placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום"/><br> 
-                        <br/>
-                        <div><br/>איזו שנה בתואר את/ה מתחיל/ה (במספרים)?</div>
-                        <input class="box" type="year" name="year" id="year"
-                        placeholder="1/2/3...." required /><br> 
-                        <br/>
-                        <div><br/>איזה קורסים יש לך הסמסטר?</div>
-                        <input class="box" type="courses" name="courses" id="courses"
-                        placeholder="קיימות, מבוא למדמח, תורת המשחקים" required /><br> 
-                        <br/>
-                        <div><br/>מה התחביבים שלך?</div>
-                        <input class="box" type="hobbies" name="hobbies" id="hobbies"
-                        placeholder="ספורט, קריאה, נגינה בגיטרה"/><br>
-                        <br/>
-                        <div><br/>רוצה לספר לנו עוד משהו?</div>
-                        <input class="box" type="any" name="any" id="any"
-                        placeholder="אני בת 25 מבית שמש, גרה עכשיו ברינגלבלום ואוהבת בלונים פורחים"/><br>
-                        <br> 
-                        <input type="submit" id="submitDetails"
-                        name="submitDetails" value="Submit" /><br> 
-                            
-                    </form>         
-                </div>     
-
-                <div class="col-md-3"> 
-                </div>       
-            </div> 
-        </div> 
-        <!-- <script type="text/javascript" src="submit.js"></script> -->
-    </body> 
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 main">
+                    <div class="ketemu-logo"><img style="width: 76%; height: 76%;" src="./logo.png"/></div>
+                    <form id="user-details" action="/details" method="post">
+                        <hr style="margin-top: -10px;">
+                        <h2>כמה שאלות, כדי שנוכל להכיר יותר טוב :)</h2>
+                        <hr>
+                        <div hidden class="new-div">איך קוראים לך?</div>
+                        <input hidden class="box new-input" type="text" name="name" id="name" placeholder="ישראל ישראלי" required />
+                        
+                        <div style="float: right; width: 70%;" class="new-div">באיזה תואר את/ה?</div>
+                        <label hidden for="year">שנה?</label>
+                        <select style="margin: 3px 20px 4px 0; float: left;" class="box" name="year" id="year">
+                            <option value="1">א</option>
+                            <option value="2">ב</option>
+                            <option value="3">ג</option>
+                            <option value="4">ד</option>
+                            <option value="5">ה</option>
+                            <option value="-1">אחר</option>
+                        </select>
+                        <div class="new-div" style="float: left;">שנה?</div>
+                        <p style="float: right; width: 70%;" class="form-notes">* אם במסלול משולב רשום/רשמי את התואר הראשי או את אחד מהם</p>
+                        <input class="box new-input" type="degree_1" name="degree_1" id="degree_1" placeholder="ראשי עם חטיבה - כתבו את הראשי, דו חוגי - כתבו אחד מהחוגים" required />
+                        <p></p>
+                        <div class="new-div">רשום/רשמי את מסלול להלימודים השני - אם רלוונטי</div>
+                        <input class="box new-input" type="degree_2" name="degree_2" id="degree_2" placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום" />
+                        <p></p>
+                        <div class="new-div">איזה קורסים יש לך הסמסטר?</div>
+                        <input class="box new-input" type="courses" name="courses" id="courses" placeholder="קיימות, מבוא למדמח, תורת המשחקים" required />
+                        <p></p>
+                        <div class="new-div">מה התחביבים שלך?</div>
+                        <input class="box new-input" type="hobbies" name="hobbies" id="hobbies" placeholder="ספורט, קריאה, נגינה בגיטרה" />
+                        <p></p>
+                        <div class="new-div">רוצה לספר לנו עוד משהו?</div>
+                        <input class="box new-input" type="any" name="any" id="any" placeholder="אני בת 25 מבית שמש, גרה עכשיו ברינגלבלום ואוהבת בלונים פורחים" />
+                        <p style="margin-top: 5%;"></p>
+                        <input type="submit" id="submitDetails" name="submitDetails" value="שליחה" />
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </body>
 </html>
