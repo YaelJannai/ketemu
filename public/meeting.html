@@ -5,10 +5,51 @@
 	<script src='https://meet.jit.si/external_api.js'></script>
 	<script src='./scripts/ketemu.js'></script>
 	<script src='./scripts/meeting.js'></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<body onload="startMeeting()">
-	<div id="meet" style="height: 78%; width: 50%; display: block; margin: 0 auto;">
+<body class="background-gradient" onload="startMeeting()">
+<!-- <body class="background-gradient" onload="nostartMeeting()"> -->
+	<div class="ketemu-logo" style="top: 0; left: 0; width: 20%; height: 20%; float: left; padding: 10px 0 0 20px;"><img style="width: 100%;" src="./logo.png"/></div>
+	<div style="float: right; display: block; margin-top: 10%;">
+		<div class="send-details">
+			<span>למי תרצו שנשלח את הפרטים שלכם?</span>
+			<ul style="margin-left: 15%;">
+				<li style="float: right; width: 10%; position: absolute;">
+					<input style="float: right; position: absolute; width: 10%;" type="checkbox" />
+					<span style="float: right; position: absolute; margin: 2px 20% 0 0;">דניאל</span>
+				</li>
+				<li style="float: right; width: 10%; position: absolute; margin-top: 2%;">
+					<input style="float: right; position: absolute; width: 10%;" type="checkbox" />
+					<span style="float: right; position: absolute; margin: 2px 20% 0 0;">יעל</span>
+				</li>
+			</ul>
+		</div>
+		<div class="shared-details">
+			<span>מי שיתפו אתכם  את הפרטים שלהם?</span>
+			<ul style="margin-left: 15%;">
+				<li style="float: right; width: 10%; position: absolute;">
+					<input style="float: right; position: absolute; width: 10%;" type="checkbox" disabled/>
+					<span style="float: right; position: absolute; margin: 2px 20% 0 0;">דניאל</span>
+				</li>
+				<li style="float: right; width: 10%; position: absolute; margin-top: 2%;">
+					<input style="float: right; position: absolute; width: 10%;" type="checkbox" checked disabled/>
+					<span style="float: right; position: absolute; margin: 2px 20% 0 0;">יעל
+						<span style="font-size: smaller;">
+							(
+							<a href="https://www.facebook.com/me">פייסבוק</a>;
+							<a href="https://wa.me/972501112222">וואטסאפ</a>
+							)
+						</span>
+					</span>
+				</li>
+			</ul>
+		</div>
 	</div>
+
+	<div id="meet" style="height: 78%; width: 50%; margin: 0 25%; position: fixed">
+	</div>
+	<div dir=rtl style="text-align: center; position: fixed; margin: 39% 25%;"><span style="float: right; font-size: 1.5em; margin-top: 12px">אין רעיון מה לשאול? לנו יש כמה רעיונות:</span><img style="float: right;" src="./guide-questions.gif"/></div>
+	
 </body>
 </html>
 

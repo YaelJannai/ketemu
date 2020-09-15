@@ -12,8 +12,10 @@
 } 
 
 .ketemu-logo {
-	/* background-image: url("/public/logo.png"); */
+	/* background-image: url("/logo.png"); */
 	text-align: center;
+	width: 100%;
+	height: 100%;
 }
 
 .main h1, h2, h3, h4 { 
@@ -23,6 +25,15 @@
 
 .box {
 	font-size: 0.85em;
+}
+
+.background-gradient {
+	/* background: linear-gradient(90deg, #ffc0cb66, 5%, white, 90%, #ffc0cb33) fixed; */
+	background: linear-gradient(150deg, #ffc0cb66, 2%, white) fixed;
+	/* background: linear-gradient(90deg, #ffc0cb33, white, white, white) fixed; */
+	/* background: linear-gradient(90deg, #ffc0cb33, white, white, white) fixed; */
+	height: 100%;
+	width: 100%;
 }
 
 input{ 
@@ -73,3 +84,45 @@ input[type=submit]:hover {
 	font-size: 11pt;
 	padding: 5px 20px 0 0;
 }
+
+.send-details, .shared-details {
+	direction: rtl;
+	width: 300px;
+	font-size: 1.2em;
+	color: #7761db;
+}
+
+.send-details {
+	top: 0;
+	right: 0;
+	/* width: 20%; */
+	/* height: 20%; */
+	margin: 10% 15%;
+	float: right;
+	display: block;
+}
+
+.shared-details {
+	top: 0;
+	right: 0;
+	/* width: 20%; */
+	/* height: 20%; */
+	margin: 10% 15% 0 0;
+	float: right;
+	display: block;
+}
+
+ul {
+	list-style: none;
+  }
+
+/* ul li::before {
+	content: "\2022";
+	color: #AEA1EA;
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: 1em;
+	direction: rtl;
+  }
+*/

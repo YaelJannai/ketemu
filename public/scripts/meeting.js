@@ -19,7 +19,7 @@ const userInfoProto = {
 function startMeeting() {
 	const domain = 'meet.jit.si';
 	const options = {
-	    roomName: 'hackbgu2020/ariel-ariel-meet-124refjmkslw3',
+	    roomName: 'hackbgu2020/tekemu-team-talk-124oqfkasn',
 	    parentNode: document.querySelector('#meet'),
 	    interfaceConfigOverwrite: {
 			DEFAULT_BACKGROUND: '#ffffff',
@@ -61,7 +61,7 @@ function startMeeting() {
 
 	api.addEventListener('videoConferenceJoined', () => {
 		console.log('Local User Joined');
-		api.executeCommand('displayName', makeid(10)/*document.getElementById("username").value*/);
+		api.executeCommand('displayName', 'אריאל'/*makeid(10)  document.getElementById("username").value*/);
 		console.log('videoConferenceJoined', event);
 	});
 
@@ -115,6 +115,18 @@ function addUsers(number) {
 	users.push(userAriel);
 	localStorage.setItem('users', JSON.stringify(users));
 }
+
+document.addEventListener('DOMContentLoaded', onloadfn, false);
+
+function onloadfn() {
+    console.log('meeting onload');
+	var data = JSON.parse(httpGet('/details'));
+	console.log('data is coming!!!');
+	console.log(data);
+	localStorage.setItem('users', [data]);
+    // document.getElementById('name').value = data.name;
+    // document.querySelector('#user-details > h2').innerHTML = 'היי ' + data.name.split(' ')[0] + '!';
+};
 
 // $('.displayname').each((i,x) => x.innerHTML += '<BR>לומד עיצוב קרמי וזכוכית<BR>אוהב עוגיות<BR>מתכנת<BR>🍪')
 
