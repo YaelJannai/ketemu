@@ -119,11 +119,11 @@ function addUsers(number) {
 document.addEventListener('DOMContentLoaded', onloadfn, false);
 
 function onloadfn() {
-    console.log('meeting onload');
-	var data = JSON.parse(httpGet('/details'));
-	console.log('data is coming!!!');
-	console.log(data);
-	localStorage.setItem('users', [data]);
+    // console.log('meeting onload');
+	// var data = JSON.parse(httpGet('/details'));
+	// console.log('data is coming!!!');
+	// console.log(data);
+	// localStorage.setItem('users', [data]);
     // document.getElementById('name').value = data.name;
     // document.querySelector('#user-details > h2').innerHTML = 'היי ' + data.name.split(' ')[0] + '!';
 };
