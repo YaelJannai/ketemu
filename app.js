@@ -96,6 +96,8 @@ app.post('/details', function(req,res){
 					} else {
 						// we have the file contents here, so do something with it
 						var meetingsData = JSON.parse(fs.readFileSync('groups.json', 'utf-8'));
+						// save the meetings generated ID's
+						cachedUser["meetingsData"] = meetingsData;
 						//console.log(meetingsData);
 					}
 				});
@@ -118,8 +120,14 @@ app.post('/details', function(req,res){
 	}
 });
 
+// get the users details as json
 app.get("/details", function (req, res) {
     res.send(JSON.stringify(cachedUser["details"]));
+});
+
+// get the meetings ID's as json
+app.get("/meetingsData", function (req, res) {
+    res.send(JSON.stringify(cachedUser["meetingsData"]));
 });
 
 // the app will listen to port 3000
