@@ -18,7 +18,8 @@
                     <div class="ketemu-logo"><img style="width: 76%; height: 76%;" src="./logo.png"/></div>
                     <form id="user-details" action="/details" method="post">
                         <hr style="margin-top: -10px;">
-                        <h2>כמה שאלות, כדי שנוכל להכיר יותר טוב :)</h2>
+                        <h2></h2>
+                        <h4>כמה שאלות, כדי שנוכל להכיר ולשבץ אותך טוב יותר  :)</h4>
                         <hr>
                         <div hidden class="new-div">איך קוראים לך?</div>
                         <input hidden class="box new-input" type="text" name="name" id="name" placeholder="ישראל ישראלי" required />
@@ -44,8 +45,8 @@
 
                         <input class="box new-input" type="degree_1" name="degree_1" id="degree_1" placeholder="אם במסלול משולב, אפשר לרשום את התואר הראשי או אחד לבחירתך" required />
                         <p></p>
-                        <div class="new-div">אם רלוונטי - מה מסלול הלימודים השני?</div>
-                        <input class="box new-input" type="degree_2" name="degree_2" id="degree_2" placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום" />
+                        <div hidden class="new-div">אם רלוונטי - מה מסלול הלימודים השני?</div>
+                        <input hidden class="box new-input" type="degree_2" name="degree_2" id="degree_2" placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום" />
                         <p></p>
                         <div class="new-div">לאיזה קורסים נרשמת הסמסטר?</div>
                         <input class="box new-input" type="courses" name="courses" id="courses" placeholder="קיימות, מבוא למדמח, תורת המשחקים" required />
@@ -54,7 +55,13 @@
                         <input class="box new-input" type="hobbies" name="hobbies" id="hobbies" placeholder="ספורט, קריאה, נגינה בגיטרה" />
                         <p></p>
                         <div class="new-div">רוצה לספר לנו עוד משהו?</div>
-                        <input class="box new-input" type="any" name="any" id="any" placeholder="אני בת 25 מבית שמש, גרה ברינגלבלום, אוהבת בלונים פורחים, לאכול גלידה ובדיוק חזרתי מאינדוזיה" />
+                        <input class="box new-input" type="any" name="any" id="any" placeholder="אני בת 25 מבית שמש, גרה ברינגלבלום, אוהבת בלונים פורחים, לאכול גלידה ובדיוק חזרתי מאינדונזיה" />
+                        <p></p>
+                        <div style="float: right; width: 48%; text-align: center;" class="new-div">פייסבוק</div>
+                        <div style="float: left; width: 48%; text-align: center;" class="new-div">טלפון</div>
+                        <input style="float: right; width: 48%; text-align: center;" class="box new-input" type="any" name="any" id="any" placeholder="https://facebook.com/me" />
+                        <input style="float: left; width: 48%; text-align: center;" class="box new-input" type="any" name="any" id="any" placeholder="050-111-2222" />
+                        <p style="white-space: nowrap; display: inline;" class="form-notes">* נעביר את הפרטים רק אם תבחרו, ורק למי שתרצו</p>
                         <p style="margin-top: 5%;"></p>
                         <input type="submit" id="submitDetails" name="submitDetails" value="שליחה" />
                     </form>
