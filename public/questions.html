@@ -15,25 +15,15 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6 main">
+                    <div class="ketemu-logo" style="text-align: center;"><img src='./logo.png'/></div>
                     <form id="user-details" action="/details" method="post">
-                        <h1>כמה שאלות, כדי שנוכל להכיר יותר טוב :)</h1>
-                        <p style="margin-top: 5%;"></p>
-                        <div class="new-div">איך קוראים לך?</div>
-                        <input class="box new-input" type="text" name="name" id="name" placeholder="ישראל ישראלי" required />
-                        <p></p>
-                        <div class="new-div">באיזה תואר את/ה (אם במסלול משולב רשום/רשמי את התואר הראשי או את אחד מהם)?</div>
-                        <input class="box new-input" type="degree_1" name="degree_1" id="degree_1" placeholder="ראשי עם חטיבה - כתבו את הראשי, דו חוגי - כתבו אחד מהחוגים" required />
-                        <p></p>
-                        <div class="new-div">רשום/רשמי את מסלול להלימודים השני - אם רלוונטי</div>
-                        <input class="box new-input" type="degree_2" name="degree_2" id="degree_2" placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום" />
-                        <!-- 
-                        <div>איזו שנה בתואר את/ה מתחיל/ה (במספרים)?</div>
-                        <input class="box" type="year" name="year" id="year" placeholder="1/2/3...." required />
-                         -->
-                        <p></p>
-                        <div class="new-div" style="float: right;">איזו שנה בתואר?</div>
-                        <label hidden for="year">איזו שנה בתואר?</label>
-                        <select style="margin: 0 20px 4px 0;" class="box" name="year" id="year">
+                        <h2 style="margin: 0 0 3% 0;">כמה שאלות, כדי שנוכל להכיר יותר טוב :)</h2>
+                        <div hidden class="new-div">איך קוראים לך?</div>
+                        <input hidden class="box new-input" type="text" name="name" id="name" placeholder="ישראל ישראלי" required />
+                        
+                        <div style="float: right; width: 70%;" class="new-div">באיזה תואר את/ה?</div>
+                        <label hidden for="year">שנה?</label>
+                        <select style="margin: 3px 20px 4px 0; float: left;" class="box" name="year" id="year">
                             <option value="1">א</option>
                             <option value="2">ב</option>
                             <option value="3">ג</option>
@@ -41,7 +31,12 @@
                             <option value="5">ה</option>
                             <option value="-1">אחר</option>
                         </select>
-                        <input class="new-input" style="padding: 0; height: 0;" class="box" />
+                        <div class="new-div" style="float: left;">שנה?</div>
+                        <p style="float: right; width: 70%;" class="form-notes">* אם במסלול משולב רשום/רשמי את התואר הראשי או את אחד מהם</p>
+                        <input class="box new-input" type="degree_1" name="degree_1" id="degree_1" placeholder="ראשי עם חטיבה - כתבו את הראשי, דו חוגי - כתבו אחד מהחוגים" required />
+                        <p></p>
+                        <div class="new-div">רשום/רשמי את מסלול להלימודים השני - אם רלוונטי</div>
+                        <input class="box new-input" type="degree_2" name="degree_2" id="degree_2" placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום" />
                         <p></p>
                         <div class="new-div">איזה קורסים יש לך הסמסטר?</div>
                         <input class="box new-input" type="courses" name="courses" id="courses" placeholder="קיימות, מבוא למדמח, תורת המשחקים" required />

@@ -8,13 +8,15 @@
     <body>
         <div class="container">
             <div class="row">
+                
                 <div class="col-md-3"></div>
                 <div class="col-md-6 main">
+                    <div class="ketemu-logo" style="text-align: center;"><img src='./logo.png'/></div>
                     <form action="/sign_up" method="post">
                         <h1>טופס הרשמה</h1>
                         <input style="font-size: 1.4em;" class="box" type="text" name="name" id="name" placeholder="שם" required />
                         <input style="font-size: 1.4em;" class="box" type="email" name="email" id="email" placeholder="כתובת מייל" pattern="[a-z0-9._%+-]+@post.bgu.ac.il" required />
-						<p style="font-size: 10pt; padding: 5px 20px 0 0">* הכניסו רק מייל אוניברסיטאי, מייל אחר לא יתקבל</p>
+						<p class="form-notes">* הכניסו רק מייל אוניברסיטאי, מייל אחר לא יתקבל</p>
 						<p style="margin: 40px 0;"></p>
                         <input type="submit" id="submitDetails" name="submitDetails" value="שליחה" />
                     </form>

@@ -1,5 +1,5 @@
 *{
-	font-family: Calibri, Cambria, Gisha, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: Calibri Light, Calibri, Cambria, Gisha, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .container {
@@ -8,13 +8,16 @@
 
 .main{ 
 	padding:15px; 
-	box-shadow: -5px 5px 7px 5px lightgray; 
+	/* box-shadow: -5px 5px 7px 5px lightgray;  */
 } 
 
-.main h1{ 
+.ketemu-logo {
+	/* background-image: url("/public/logo.png"); */
+}
+
+.main h1, h2{ 
 	/* font-size: 40px;  */
 	text-align: center; 
-	font-weight: bold;
 } 
 
 .box {
@@ -31,13 +34,18 @@ input{
 } 
 input[type=submit] { 
 	width: 100%; 
-	background-color: darkorange;
+	background-color: #ffc0cbb6;
 	border: none; 
-	color: white; 
+	color: #865573; 
 	padding: 16px 32px; 
 	margin: 4px 2px; 
 	border-radius: 10px; 
+	font-size: 1.5em;
 } 
+
+input[type=submit]:hover {
+	background-color: #ffc0cb86;
+}
 
 .new-input {
 	margin: 0 auto 10px auto;
@@ -54,7 +62,13 @@ input[type=submit] {
 	font-size: 3em;
 	text-align: center;
 	margin: auto;
+	margin-top: 6%;
 	/* width: max-content; */
 	/* border:  2px solid #767474;
 	box-shadow: 5px 5px 7px 5px lightgray;  */
+}
+
+.form-notes {
+	font-size: 10pt;
+	padding: 5px 20px 0 0;
 }
