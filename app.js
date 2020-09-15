@@ -3,20 +3,20 @@ let {PythonShell} = require('python-shell')
 
 const express = require("express"); 
 const bodyParser = require("body-parser"); 
+const fs = require('fs')
+const file = 'userdata.json'
+// configuration for json file with user input
+const jsonfile = require('jsonfile');   
 
 var app = express();
 var isTime = false;
-
 
 app.use(bodyParser.json()); 
 app.use(express.static('public')); 
 app.use(bodyParser.urlencoded({ 
 	extended: true
 })); 
-
-// configuration for json file with user input
-var jsonfile = require('jsonfile');    
-var file = './userdata.json'
+ 
 
 // what happens when the web page is opened
 app.get('/',function(req,res){ 
@@ -25,6 +25,7 @@ res.set({
 	}); 
 return res.redirect('index.html');
 })
+
 
 // after the user signed in, save data
 app.post('/sign_up', function(req,res){ 
@@ -40,6 +41,7 @@ app.post('/sign_up', function(req,res){
 	}
 
 });
+
 
 // after the user answered questions, save answers
 app.post('/details', function(req,res){ 
@@ -64,18 +66,45 @@ app.post('/details', function(req,res){
 			"hobbies":hobbies,
 			"extra-info": any
 		} 
+
 		// add to JSON file 
 		jsonfile.writeFileSync(file, data, {flag: 'a'});
-		var jsonObj = JSON.stringify(data);
+		
 		//call to python function
 		InitUsersPython();
-		var res = getMeetingsPython();
-		console.log(res);
+		getMeetingsPython()
+
+		// wait for the json file from getMeetingsPython to be created
+		// then use the file to create meetings
+		const checkTime = 1000;
+		function check() {
+			setTimeout(() => {
+				fs.readFile('groups.json', 'utf8', function(err, data) {
+					if (err) {
+						// got error reading the file, call check() again
+						check();
+					} else {
+						// we have the file contents here, so do something with it
+						var meetingsData = JSON.parse(fs.readFileSync('groups.json', 'utf-8'));
+						//console.log(meetingsData);
+					}
+				});
+			}, checkTime)
+		}
+
+		check();
+
+		// var meetingsData = jsonfile.readFileSync('groups.json', 'utf-8');
+		//console.log(meetingsData);
+
+		//var meetingsData = JSON.parse(fs.readFileSync('groups.json', 'utf-8'));
+		
+		// console.log(res);
 		//recieve url of the meeting
 		//send user to meeting
 
-		// res.redirect('/meeting.html');
-		// return res.end('bye!');
+		res.redirect('/meeting.html');
+		return res.end('bye!');
 	}
 });
 
@@ -138,8 +167,6 @@ function InitUsersPython(){
 	   
 	PythonShell.run('script.py', options, function (err) {
 		if (err) throw err;
-		// results is an array consisting of messages collected during execution
-		// console.log('results: %j', results);
 	});
 }
 
@@ -155,9 +182,6 @@ function getMeetingsPython(){
 	   
 	PythonShell.run('script.py', options, function (err, results) {
 		if (err) throw err;
-		// results is an array consisting of messages collected during execution
-		return results;
-		//json object - array of objects with meetingID and userID of users for that meeting
 	});
 }
 
