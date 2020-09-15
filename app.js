@@ -10,6 +10,7 @@ const jsonfile = require('jsonfile');
 
 var app = express();
 var isTime = false;
+let cachedUser = {};
 
 app.use(bodyParser.json()); 
 app.use(express.static('public')); 
@@ -37,9 +38,16 @@ app.post('/sign_up', function(req,res){
 			"name": name, 
 			"email":email
 		} 
+
+		cachedUser["sign_up"] = data;
+
 		return res.redirect('/questions.html'); 
 	}
 
+});
+
+app.get("/sign_up", function (req, res) {
+    res.send(JSON.stringify(cachedUser["sign_up"]));
 });
 
 
@@ -66,6 +74,8 @@ app.post('/details', function(req,res){
 			"hobbies":hobbies,
 			"extra-info": any
 		} 
+
+		cachedUser["details"] = data;
 
 		// add to JSON file 
 		jsonfile.writeFileSync(file, data, {flag: 'a'});
@@ -106,6 +116,10 @@ app.post('/details', function(req,res){
 		res.redirect('/meeting.html');
 		return res.end('bye!');
 	}
+});
+
+app.get("/details", function (req, res) {
+    res.send(JSON.stringify(cachedUser["details"]));
 });
 
 // the app will listen to port 3000

@@ -23,31 +23,38 @@
                         <div hidden class="new-div">איך קוראים לך?</div>
                         <input hidden class="box new-input" type="text" name="name" id="name" placeholder="ישראל ישראלי" required />
                         
-                        <div style="float: right; width: 70%;" class="new-div">באיזה תואר את/ה?</div>
+                        <div style="float: right; width: 40%;" class="new-div">מה מסלול הלימודים שלך?</div>
                         <label hidden for="year">שנה?</label>
                         <select style="margin: 3px 20px 4px 0; float: left;" class="box" name="year" id="year">
-                            <option value="1">א</option>
-                            <option value="2">ב</option>
-                            <option value="3">ג</option>
-                            <option value="4">ד</option>
-                            <option value="5">ה</option>
+                            <option value="1">שנה א</option>
+                            <option value="2">שנה ב</option>
+                            <option value="3">שנה ג</option>
+                            <option value="4">שנה ד</option>
+                            <option value="5">שנה ה</option>
                             <option value="-1">אחר</option>
                         </select>
-                        <div class="new-div" style="float: left;">שנה?</div>
-                        <p style="float: right; width: 70%;" class="form-notes">* אם במסלול משולב רשום/רשמי את התואר הראשי או את אחד מהם</p>
-                        <input class="box new-input" type="degree_1" name="degree_1" id="degree_1" placeholder="ראשי עם חטיבה - כתבו את הראשי, דו חוגי - כתבו אחד מהחוגים" required />
+
+                        <label hidden for="degree">תואר?</label>
+                        <select style="margin: 3px 20px 4px 0; float: left;" class="box" name="degree" id="degree">
+                            <option value="1">תואר ראשון</option>
+                            <option value="2">תואר שני</option>
+                            <option value="3">תואר שלישי</option>
+                            <option value="-1">אחר</option>
+                        </select>
+
+                        <input class="box new-input" type="degree_1" name="degree_1" id="degree_1" placeholder="אם במסלול משולב, אפשר לרשום את התואר הראשי או אחד לבחירתך" required />
                         <p></p>
-                        <div class="new-div">רשום/רשמי את מסלול להלימודים השני - אם רלוונטי</div>
+                        <div class="new-div">אם רלוונטי - מה מסלול הלימודים השני?</div>
                         <input class="box new-input" type="degree_2" name="degree_2" id="degree_2" placeholder="אם לא רלוונטי, לא צריך לכתוב פה כלום" />
                         <p></p>
-                        <div class="new-div">איזה קורסים יש לך הסמסטר?</div>
+                        <div class="new-div">לאיזה קורסים נרשמת הסמסטר?</div>
                         <input class="box new-input" type="courses" name="courses" id="courses" placeholder="קיימות, מבוא למדמח, תורת המשחקים" required />
                         <p></p>
                         <div class="new-div">מה התחביבים שלך?</div>
                         <input class="box new-input" type="hobbies" name="hobbies" id="hobbies" placeholder="ספורט, קריאה, נגינה בגיטרה" />
                         <p></p>
                         <div class="new-div">רוצה לספר לנו עוד משהו?</div>
-                        <input class="box new-input" type="any" name="any" id="any" placeholder="אני בת 25 מבית שמש, גרה עכשיו ברינגלבלום ואוהבת בלונים פורחים" />
+                        <input class="box new-input" type="any" name="any" id="any" placeholder="אני בת 25 מבית שמש, גרה ברינגלבלום, אוהבת בלונים פורחים, לאכול גלידה ובדיוק חזרתי מאינדוזיה" />
                         <p style="margin-top: 5%;"></p>
                         <input type="submit" id="submitDetails" name="submitDetails" value="שליחה" />
                     </form>
