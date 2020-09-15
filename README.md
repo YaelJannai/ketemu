@@ -1,2 +1,1 @@
-# hackbgu2020
-BGU Hackathon 2020
+![ketemu](public/logo.png)
